@@ -337,6 +337,10 @@
     showScreen("select");
   });
 
+  document.getElementById("cancel-draft").addEventListener("click", () => {
+    showScreen("select");
+  });
+
   // --- Init ---
   renderGameList();
   showScreen("select");
