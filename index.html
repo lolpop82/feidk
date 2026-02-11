@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FE Draft Race</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Game Select Screen -->
+  <div id="screen-select" class="screen">
+    <header>
+      <h1>Fire Emblem Solo Draft Race</h1>
+      <p>Pick a game to start drafting</p>
+    </header>
+    <div id="game-list" class="game-list"></div>
+  </div>
+
+  <!-- Setup Screen -->
+  <div id="screen-setup" class="screen">
+    <button id="back-to-select" class="back-link">&larr; Back to game list</button>
+    <header>
+      <h1 id="setup-game-name"></h1>
+      <p>Configure your draft</p>
+    </header>
+
+    <div class="setup-section">
+      <h3>Draft Settings</h3>
+      <div class="form-row">
+        <label for="num-bots">Number of bots</label>
+        <select id="num-bots">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3" selected>3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label for="num-rounds">Number of rounds</label>
+        <input type="number" id="num-rounds" min="1" max="20" value="7">
+      </div>
+      <div class="form-row">
+        <label for="draft-type">Draft type</label>
+        <select id="draft-type">
+          <option value="snake">Snake</option>
+          <option value="linear">Linear</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label for="player-position">Your draft position</label>
+        <select id="player-position"></select>
+      </div>
+    </div>
+
+    <div class="setup-section">
+      <h3>Free Units</h3>
+      <div id="free-unit-tags" class="free-unit-tags"></div>
+      <div class="add-free-row">
+        <select id="add-free-select"></select>
+        <button id="add-free-btn" class="btn btn-small btn-secondary">Add to free</button>
+      </div>
+    </div>
+
+    <div class="setup-section">
+      <button id="advanced-toggle" class="advanced-toggle">Advanced: Pick Rates</button>
+      <div id="advanced-body" class="advanced-body">
+        <div id="pick-rate-grid" class="pick-rate-grid"></div>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top:1rem;">
+      <button id="start-draft-btn" class="btn">Start Draft</button>
+    </div>
+  </div>
+
+  <!-- Draft Screen -->
+  <div id="screen-draft" class="screen">
+    <header>
+      <h1>Draft</h1>
+    </header>
+    <div id="draft-info" class="draft-info"></div>
+    <div id="draft-free-units" class="free-units-bar"></div>
+    <div id="draft-columns" class="draft-columns"></div>
+    <h3>Available Units</h3>
+    <div id="available-grid" class="available-grid"></div>
+  </div>
+
+  <!-- Results Screen -->
+  <div id="screen-results" class="screen">
+    <header>
+      <h1>Draft Results</h1>
+      <p id="results-game-name"></p>
+    </header>
+    <div id="results-free-units" class="free-units-bar"></div>
+    <div id="results-columns" class="results-columns"></div>
+    <div class="results-actions">
+      <button id="btn-redraft" class="btn">Re-draft</button>
+      <button id="btn-game-select" class="btn btn-secondary">Game Select</button>
+    </div>
+  </div>
+
+  <script src="games.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
