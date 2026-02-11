@@ -1,4 +1,18 @@
 (function () {
+  // --- Theme toggle ---
+  const themeBtn = document.getElementById("theme-toggle");
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "light") {
+    document.body.classList.add("light");
+    themeBtn.textContent = "Dark";
+  }
+  themeBtn.addEventListener("click", () => {
+    document.body.classList.toggle("light");
+    const isLight = document.body.classList.contains("light");
+    themeBtn.textContent = isLight ? "Dark" : "Light";
+    localStorage.setItem("theme", isLight ? "light" : "dark");
+  });
+
   // --- State ---
   let selectedGame = null;
   let freeUnits = [];
