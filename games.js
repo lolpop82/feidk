@@ -1,6 +1,7 @@
 const GAMES = [
   {
     name: "Sacred Stones",
+    slug: "ss",
     freeUnits: ["Eirika", "Ephraim"],
     units: [
       { name: "Seth", pickRate: 95 },
@@ -36,7 +37,8 @@ const GAMES = [
       { name: "Rennac", pickRate: 15 },
     ],
   },
-  { name: "Thracia 776", 
+  { name: "Thracia 776",
+    slug: "th",
     freeUnits: ["Leif","Safy","Eyvel","Lara"], 
     units: [
       { name : "Finn", pickRate: 70},
@@ -90,6 +92,7 @@ const GAMES = [
 },
   {
     name: "Binding Blade",
+    slug: "bi",
     freeUnits: ["Roy","Marcus","Larum","Elffin","Fae"],
     units: [
       { name: "Melady", pickRate: 85 },
@@ -144,6 +147,7 @@ const GAMES = [
   },
   {
     name: "Blazing Blade",
+    slug: "bl",
     freeUnits: ["Eliwood", "Hector", "Lyn"],
     units: [
       { name: "Florina", pickRate: 80 },
@@ -186,13 +190,14 @@ const GAMES = [
       { name: "Renault", pickRate: 15 },
     ],
   },
-  { name: "Path of Radiance", freeUnits: [], units: [] },
-  { name: "Radiant Dawn", freeUnits: [], units: [] },
-  { name: "Shadow Dragon", freeUnits: [], units: [] },
-  { name: "New Mystery", freeUnits: [], units: [] },
-  { name: "Awakening", freeUnits: [], units: [] },
+  { name: "Path of Radiance", slug: "po", freeUnits: [], units: [] },
+  { name: "Radiant Dawn", slug: "rd", freeUnits: [], units: [] },
+  { name: "Shadow Dragon", slug: "sd", freeUnits: [], units: [] },
+  { name: "New Mystery", slug: "nm", freeUnits: [], units: [] },
+  { name: "Awakening", slug: "aw", freeUnits: [], units: [] },
   {
     name: "Fates Birthright",
+    slug: "br",
     freeUnits: ["Corrin", "Azura"],
     units: [
       { name: "Ryoma", pickRate: 95 },
@@ -225,6 +230,7 @@ const GAMES = [
   },
   {
     name: "Fates Conquest",
+    slug: "co",
     freeUnits: ["Corrin", "Azura"],
     units: [
       { name: "Xander", pickRate: 95 },
@@ -256,6 +262,7 @@ const GAMES = [
   },
   {
     name: "Fates Revelation",
+    slug: "re",
     freeUnits: ["Corrin", "Azura", "Scarlet"],
     units: [
       { name: "Ryoma", pickRate: 95 },
@@ -302,5 +309,5 @@ const GAMES = [
       { name: "Gunter", pickRate: 15 },
     ],
   },
-  { name: "Engage", freeUnits: [], units: [] },
+  { name: "Engage", slug: "en", freeUnits: [], units: [] },
 ];

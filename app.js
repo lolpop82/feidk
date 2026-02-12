@@ -25,6 +25,17 @@
   let currentPick = 0;
   let playerIndex = 0;
 
+  // --- Portrait helpers ---
+  function unitPortrait(name) {
+    const slug = GAMES[selectedGame].slug;
+    const file = name.toLowerCase().replace(/[^a-z]/g, "") + slug + ".png";
+    return `<img class="portrait" src="img/units/${file}" alt="" onerror="this.style.display='none'">`;
+  }
+
+  function gamePortrait(slug) {
+    return `<img class="game-portrait" src="img/games/${slug}.png" alt="" onerror="this.style.display='none'">`;
+  }
+
   // --- DOM refs ---
   const screens = {
     select: document.getElementById("screen-select"),
@@ -49,7 +60,7 @@
         game.units.length > 0
           ? `${game.units.length} units`
           : "No units configured yet";
-      card.innerHTML = `<h3>${game.name}</h3><div class="unit-count">${count}</div>`;
+      card.innerHTML = `<div class="game-card-info"><h3>${game.name}</h3><div class="unit-count">${count}</div></div>${gamePortrait(game.slug)}`;
       if (game.units.length > 0) {
         card.addEventListener("click", () => selectGame(i));
       }
@@ -103,7 +114,7 @@
     freeUnits.forEach((name) => {
       const tag = document.createElement("span");
       tag.className = "free-tag";
-      tag.innerHTML = `${name} <button data-name="${name}">&times;</button>`;
+      tag.innerHTML = `${unitPortrait(name)}${name} <button data-name="${name}">&times;</button>`;
       container.appendChild(tag);
     });
 
@@ -127,7 +138,7 @@
       if (freeUnits.includes(name)) return;
       const div = document.createElement("div");
       div.className = "pick-rate-item";
-      div.innerHTML = `<span>${name}</span><input type="number" min="1" max="100" value="${pickRates[name]}" data-unit="${name}">`;
+      div.innerHTML = `<span>${unitPortrait(name)}${name}</span><input type="number" min="1" max="100" value="${pickRates[name]}" data-unit="${name}">`;
       container.appendChild(div);
     });
   }
@@ -212,7 +223,7 @@
       const col = document.createElement("div");
       col.className = "draft-column" + (i === playerIndex ? " player-col" : "");
       let html = `<h3>${name}</h3><ul>`;
-      draftPicks[i].forEach((u) => (html += `<li>${u}</li>`));
+      draftPicks[i].forEach((u) => (html += `<li>${unitPortrait(u)}${u}</li>`));
       html += "</ul>";
       col.innerHTML = html;
       colContainer.appendChild(col);
@@ -230,7 +241,7 @@
       available.forEach((name) => {
         const btn = document.createElement("button");
         btn.className = "unit-btn";
-        btn.textContent = name;
+        btn.innerHTML = unitPortrait(name) + name;
         btn.addEventListener("click", () => playerPick(name));
         gridContainer.appendChild(btn);
       });
@@ -284,7 +295,7 @@
       col.className =
         "results-column" + (i === playerIndex ? " player-col" : "");
       let html = `<h3>${name}</h3><ul>`;
-      draftPicks[i].forEach((u) => (html += `<li>${u}</li>`));
+      draftPicks[i].forEach((u) => (html += `<li>${unitPortrait(u)}${u}</li>`));
       html += "</ul>";
       col.innerHTML = html;
       container.appendChild(col);
