@@ -38,7 +38,7 @@ function portraitError(img) {
   let playerIndex = 0;
 
   // --- Portrait helpers ---
-  const portraitFallbacks = { br: ["co", "br"], re: ["br", "co", "re"] };
+  const portraitFallbacks = { sd: ["sd", "nm"], nm: ["nm", "sd"], br: ["co", "br"], re: ["br", "co", "re"] };
 
   function unitPortrait(name) {
     const slug = GAMES[selectedGame].slug;
