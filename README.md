@@ -12,6 +12,8 @@ features
   - config rng weights up to 999
   - config free units
   - light/dark mode
+  - copy results
+  - images for every character/game
     
 games supported
 
