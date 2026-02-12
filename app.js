@@ -138,7 +138,7 @@
       if (freeUnits.includes(name)) return;
       const div = document.createElement("div");
       div.className = "pick-rate-item";
-      div.innerHTML = `<span>${unitPortrait(name)}${name}</span><input type="number" min="1" max="100" value="${pickRates[name]}" data-unit="${name}">`;
+      div.innerHTML = `<span>${unitPortrait(name)}${name}</span><input type="number" min="1" max="999" value="${pickRates[name]}" data-unit="${name}">`;
       container.appendChild(div);
     });
   }
