@@ -148,7 +148,7 @@ const GAMES = [
   {
     name: "Blazing Blade",
     slug: "bl",
-    freeUnits: ["Eliwood", "Hector", "Lyn","Ninian","Nils","Athos"],
+    freeUnits: ["Eliwood", "Hector", "Lyn","Ninian","Nils","Merlinus","Athos"],
     units: [
       { name: "Florina", pickRate: 80 },
       { name: "Sain", pickRate: 75 },
@@ -227,7 +227,7 @@ const GAMES = [
       { name: "Largo", pickRate: 0 },      
       { name: "Elincia", pickRate: 0 },      
       { name: "Nasir", pickRate: 0 },  
-      { name: "Ena", pickRate: 0 },     
+      { name: "Ena", pickRate: 0 }, 
       { name: "Tibarn", pickRate: 0 },      
       { name: "Naesala", pickRate: 0 },      
       { name: "Giffca", pickRate: 0 },      
