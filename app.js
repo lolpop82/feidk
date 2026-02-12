@@ -89,6 +89,9 @@
   function renderSetup() {
     const game = GAMES[selectedGame];
     document.getElementById("setup-game-name").textContent = game.name;
+    const notesEl = document.getElementById("setup-game-notes");
+    notesEl.textContent = game.notes || "";
+    notesEl.style.display = game.notes ? "" : "none";
     document.getElementById("num-bots").value = 3;
     document.getElementById("num-rounds").value = 7;
     document.getElementById("draft-type").value = "linear";

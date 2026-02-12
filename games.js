@@ -363,6 +363,7 @@ const GAMES = [
 
     ], },
   { name: "Awakening", slug: "aw",
+    notes: "Drafting a parent drafts their child as well",
     freeUnits: ["Robin","Chrom","Lucina","Olivia"],
     units: [
       { name: "", pickRate: 0 },  
@@ -406,6 +407,7 @@ const GAMES = [
   {
     name: "Fates Birthright",
     slug: "br",
+    notes: "Drafting a parent drafts their child as well",
     freeUnits: ["Corrin", "Azura"],
     units: [
       { name: "Ryoma", pickRate: 95 },
@@ -439,6 +441,7 @@ const GAMES = [
   {
     name: "Fates Conquest",
     slug: "co",
+    notes: "Drafting a parent drafts their child as well",
     freeUnits: ["Corrin", "Azura"],
     units: [
       { name: "Xander", pickRate: 250 },
@@ -471,6 +474,7 @@ const GAMES = [
   {
     name: "Fates Revelation",
     slug: "re",
+    notes: "Drafting a parent drafts their child as well",
     freeUnits: ["Corrin", "Azura", "Scarlet"],
     units: [
       { name: "Ryoma", pickRate: 95 },
