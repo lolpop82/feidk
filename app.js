@@ -100,6 +100,10 @@
     const sel = document.getElementById("player-position");
     const total = numBots + 1;
     sel.innerHTML = "";
+    const randOpt = document.createElement("option");
+    randOpt.value = "random";
+    randOpt.textContent = "Random";
+    sel.appendChild(randOpt);
     for (let i = 1; i <= total; i++) {
       const opt = document.createElement("option");
       opt.value = i;
@@ -170,7 +174,11 @@
     const numBots = parseInt(document.getElementById("num-bots").value);
     const numRounds = parseInt(document.getElementById("num-rounds").value);
     const draftType = document.getElementById("draft-type").value;
-    playerIndex = parseInt(document.getElementById("player-position").value) - 1;
+    const posValue = document.getElementById("player-position").value;
+    const total = numBots + 1;
+    playerIndex = posValue === "random"
+      ? Math.floor(Math.random() * total)
+      : parseInt(posValue) - 1;
 
     // Read pick rates from inputs
     document.querySelectorAll("#pick-rate-grid input").forEach((inp) => {
