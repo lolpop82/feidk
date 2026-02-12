@@ -93,7 +93,7 @@ const GAMES = [
   {
     name: "Binding Blade",
     slug: "bi",
-    freeUnits: ["Roy","Marcus","Larum","Elffin","Fae"],
+    freeUnits: ["Roy","Marcus","Lalum","Elffin","Fae"],
     units: [
       { name: "Melady", pickRate: 85 },
       { name: "Rutger", pickRate: 85 },
@@ -107,7 +107,7 @@ const GAMES = [
       { name: "Lugh", pickRate: 55 },
       { name: "Klein", pickRate: 40 },
       { name: "Zeiss", pickRate: 35 },
-      { name: "Thea", pickRate: 50 },
+      { name: "Tate", pickRate: 50 },
       { name: "Sin", pickRate: 65 },
       { name: "Cecilia", pickRate: 35 },
       { name: "Igrene", pickRate: 40 },
