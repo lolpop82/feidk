@@ -148,7 +148,7 @@ const GAMES = [
   {
     name: "Blazing Blade",
     slug: "bl",
-    freeUnits: ["Eliwood", "Hector", "Lyn"],
+    freeUnits: ["Eliwood", "Hector", "Lyn","Ninian","Nils","Athos"],
     units: [
       { name: "Florina", pickRate: 80 },
       { name: "Sain", pickRate: 75 },
@@ -163,7 +163,6 @@ const GAMES = [
       { name: "Canas", pickRate: 55 },
       { name: "Fiora", pickRate: 55 },
       { name: "Lowen", pickRate: 50 },
-      { name: "Ninian", pickRate: 50 },
       { name: "Farina", pickRate: 50 },
       { name: "Lucius", pickRate: 45 },
       { name: "Harken", pickRate: 45 },
