@@ -89,7 +89,7 @@
     document.getElementById("setup-game-name").textContent = game.name;
     document.getElementById("num-bots").value = 3;
     document.getElementById("num-rounds").value = 7;
-    document.getElementById("draft-type").value = "snake";
+    document.getElementById("draft-type").value = "linear";
     updatePositionOptions();
     renderFreeUnits();
     renderPickRates();
