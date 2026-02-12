@@ -31,15 +31,15 @@
     <div class="setup-section">
       <h3>Draft Settings</h3>
       <div class="form-row">
-        <label for="num-bots">Number of bots</label>
-        <select id="num-bots">
-          <option value="1">1</option>
+        <label for="num-drafters">Number of drafters</label>
+        <select id="num-drafters">
           <option value="2">2</option>
-          <option value="3" selected>3</option>
-          <option value="4">4</option>
+          <option value="3">3</option>
+          <option value="4" selected>4</option>
           <option value="5">5</option>
           <option value="6">6</option>
           <option value="7">7</option>
+          <option value="8">8</option>
         </select>
       </div>
       <div class="form-row">
@@ -54,8 +54,8 @@
         </select>
       </div>
       <div class="form-row">
-        <label for="player-position">Your draft position</label>
-        <select id="player-position"></select>
+        <label>Drafters</label>
+        <div id="drafter-config" class="drafter-config"></div>
       </div>
     </div>
 
@@ -111,6 +111,7 @@
     <div id="results-free-units" class="free-units-bar"></div>
     <div id="results-columns" class="results-columns"></div>
     <div class="results-actions">
+      <button id="btn-copy" class="btn">Copy Results</button>
       <button id="btn-redraft" class="btn">Re-draft</button>
       <button id="btn-game-select" class="btn btn-secondary">Game Select</button>
     </div>

@@ -156,6 +156,44 @@ body.light .game-notes {
   font-size: 0.85rem;
 }
 
+.drafter-config {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.drafter-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  background: #222;
+  border: 1px solid #444;
+  border-radius: 3px;
+  padding: 0.2rem 0.5rem;
+}
+
+.drafter-row select {
+  background: #333;
+  color: #ccc;
+  border: 1px solid #555;
+  border-radius: 3px;
+  padding: 0.15rem 0.3rem;
+  font-size: 0.75rem;
+}
+
+body.light .drafter-row {
+  background: #f0f0f0;
+  border-color: #bbb;
+  color: #222;
+}
+
+body.light .drafter-row select {
+  background: #e0e0e0;
+  color: #222;
+  border-color: #bbb;
+}
+
 .free-unit-tags {
   display: flex;
   flex-wrap: wrap;

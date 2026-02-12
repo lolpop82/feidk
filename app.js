@@ -35,7 +35,7 @@ function portraitError(img) {
   let draftPicks = {}; // drafterIndex -> [unit names]
   let available = []; // remaining unit names
   let currentPick = 0;
-  let playerIndex = 0;
+  let manualDrafters = new Set();
 
   // --- Portrait helpers ---
   const portraitFallbacks = { sd: ["sd", "nm"], nm: ["nm", "sd"], br: ["co", "br"], re: ["br", "co", "re"] };
@@ -108,29 +108,24 @@ function portraitError(img) {
     const notesEl = document.getElementById("setup-game-notes");
     notesEl.textContent = game.notes || "";
     notesEl.style.display = game.notes ? "" : "none";
-    document.getElementById("num-bots").value = 3;
+    document.getElementById("num-drafters").value = 4;
     document.getElementById("num-rounds").value = 7;
     document.getElementById("draft-type").value = "linear";
-    updatePositionOptions();
+    renderDrafterConfig();
     renderFreeUnits();
     renderBannedUnits();
     renderPickRates();
   }
 
-  function updatePositionOptions() {
-    const numBots = parseInt(document.getElementById("num-bots").value) || 1;
-    const sel = document.getElementById("player-position");
-    const total = numBots + 1;
-    sel.innerHTML = "";
-    const randOpt = document.createElement("option");
-    randOpt.value = "random";
-    randOpt.textContent = "Random";
-    sel.appendChild(randOpt);
-    for (let i = 1; i <= total; i++) {
-      const opt = document.createElement("option");
-      opt.value = i;
-      opt.textContent = i + (i === 1 ? "st" : i === 2 ? "nd" : i === 3 ? "rd" : "th");
-      sel.appendChild(opt);
+  function renderDrafterConfig() {
+    const total = parseInt(document.getElementById("num-drafters").value) || 4;
+    const container = document.getElementById("drafter-config");
+    container.innerHTML = "";
+    for (let i = 0; i < total; i++) {
+      const row = document.createElement("div");
+      row.className = "drafter-row";
+      row.innerHTML = `<span>Drafter ${i + 1}</span><select data-drafter="${i}"><option value="bot">Bot</option><option value="manual"${i === 0 ? " selected" : ""}>Manual</option></select>`;
+      container.appendChild(row);
     }
   }
 
@@ -215,29 +210,31 @@ function portraitError(img) {
 
   function startDraft() {
     const game = GAMES[selectedGame];
-    const numBots = parseInt(document.getElementById("num-bots").value);
+    const total = parseInt(document.getElementById("num-drafters").value);
     const numRounds = parseInt(document.getElementById("num-rounds").value);
     const draftType = document.getElementById("draft-type").value;
-    const posValue = document.getElementById("player-position").value;
-    const total = numBots + 1;
-    playerIndex = posValue === "random"
-      ? Math.floor(Math.random() * total)
-      : parseInt(posValue) - 1;
 
     // Read pick rates from inputs
     document.querySelectorAll("#pick-rate-grid input").forEach((inp) => {
       pickRates[inp.dataset.unit] = parseInt(inp.value) || 1;
     });
 
-    // Build drafters list
+    // Build drafters list from config
+    manualDrafters = new Set();
     drafters = [];
     let botCount = 0;
-    for (let i = 0; i < total; i++) {
-      if (i === playerIndex) drafters.push("Player");
-      else drafters.push("Bot " + (++botCount));
-    }
+    let playerCount = 0;
+    document.querySelectorAll("#drafter-config select").forEach((sel, i) => {
+      if (sel.value === "manual") {
+        manualDrafters.add(i);
+        playerCount++;
+        drafters.push(playerCount === 1 ? "Player" : "Player " + playerCount);
+      } else {
+        drafters.push("Bot " + (++botCount));
+      }
+    });
 
-    draftOrder = buildDraftOrder(total, numRounds, draftType, playerIndex);
+    draftOrder = buildDraftOrder(total, numRounds, draftType);
 
     // Cap draft order if not enough units
     available = allUnits.filter((n) => !freeUnits.includes(n) && !bannedUnits.includes(n));
@@ -272,7 +269,7 @@ function portraitError(img) {
     colContainer.innerHTML = "";
     drafters.forEach((name, i) => {
       const col = document.createElement("div");
-      col.className = "draft-column" + (i === playerIndex ? " player-col" : "");
+      col.className = "draft-column" + (manualDrafters.has(i) ? " player-col" : "");
       let html = `<h3>${name}</h3><ul>`;
       draftPicks[i].forEach((u) => (html += `<li>${unitPortrait(u)}${u}</li>`));
       html += "</ul>";
@@ -288,12 +285,12 @@ function portraitError(img) {
     // Available grid (only interactive on player turn)
     const gridContainer = document.getElementById("available-grid");
     gridContainer.innerHTML = "";
-    if (currentPick < totalPicks && draftOrder[currentPick] === playerIndex) {
+    if (currentPick < totalPicks && manualDrafters.has(draftOrder[currentPick])) {
       available.forEach((name) => {
         const btn = document.createElement("button");
         btn.className = "unit-btn";
         btn.innerHTML = unitPortrait(name) + name;
-        btn.addEventListener("click", () => playerPick(name));
+        btn.addEventListener("click", () => manualPick(draftOrder[currentPick], name));
         gridContainer.appendChild(btn);
       });
     } else if (currentPick < totalPicks) {
@@ -304,8 +301,8 @@ function portraitError(img) {
     }
   }
 
-  function playerPick(unitName) {
-    makePick(playerIndex, unitName);
+  function manualPick(drafterIndex, unitName) {
+    makePick(drafterIndex, unitName);
     processNextPick();
   }
 
@@ -323,9 +320,9 @@ function portraitError(img) {
     }
 
     const drafter = draftOrder[currentPick];
-    if (drafter === playerIndex) {
+    if (manualDrafters.has(drafter)) {
       renderDraft();
-      return; // wait for player click
+      return; // wait for manual pick
     }
 
     // Bot pick with delay
@@ -344,7 +341,7 @@ function portraitError(img) {
     drafters.forEach((name, i) => {
       const col = document.createElement("div");
       col.className =
-        "results-column" + (i === playerIndex ? " player-col" : "");
+        "results-column" + (manualDrafters.has(i) ? " player-col" : "");
       let html = `<h3>${name}</h3><ul>`;
       draftPicks[i].forEach((u) => (html += `<li>${unitPortrait(u)}${u}</li>`));
       html += "</ul>";
@@ -361,8 +358,24 @@ function portraitError(img) {
       GAMES[selectedGame].name;
   }
 
+  function copyResults() {
+    const game = GAMES[selectedGame];
+    let text = game.name + " Draft Results\n\n";
+    drafters.forEach((name, i) => {
+      text += name + ": " + draftPicks[i].join(", ") + "\n";
+    });
+    if (freeUnits.length) {
+      text += "\nFree: " + freeUnits.join(", ");
+    }
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById("btn-copy");
+      btn.textContent = "Copied!";
+      setTimeout(() => (btn.textContent = "Copy Results"), 1500);
+    });
+  }
+
   // --- Event Listeners ---
-  document.getElementById("num-bots").addEventListener("change", updatePositionOptions);
+  document.getElementById("num-drafters").addEventListener("change", renderDrafterConfig);
 
   document.getElementById("free-unit-tags").addEventListener("click", (e) => {
     if (e.target.tagName === "BUTTON") {
@@ -410,6 +423,8 @@ function portraitError(img) {
   });
 
   document.getElementById("start-draft-btn").addEventListener("click", startDraft);
+
+  document.getElementById("btn-copy").addEventListener("click", copyResults);
 
   document.getElementById("btn-redraft").addEventListener("click", () => {
     renderSetup();
