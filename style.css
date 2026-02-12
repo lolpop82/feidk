@@ -162,6 +162,10 @@ header p {
   gap: 0.3rem;
 }
 
+.banned-tag {
+  border-color: #633;
+}
+
 .free-tag button {
   background: none;
   border: none;
@@ -515,6 +519,10 @@ body.light .free-tag {
   background: #f0f0f0;
   border-color: #bbb;
   color: #222;
+}
+
+body.light .banned-tag {
+  border-color: #c99;
 }
 
 body.light .free-tag button {

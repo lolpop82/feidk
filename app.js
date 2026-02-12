@@ -16,6 +16,7 @@
   // --- State ---
   let selectedGame = null;
   let freeUnits = [];
+  let bannedUnits = [];
   let allUnits = []; // combined list of all units (free + draftable)
   let pickRates = {}; // name -> rate
   let drafters = []; // ["Player", "Bot 1", ...]
@@ -73,6 +74,7 @@
     const game = GAMES[index];
     // Deep copy free units and build combined unit list
     freeUnits = [...game.freeUnits];
+    bannedUnits = [];
     pickRates = {};
     game.units.forEach((u) => (pickRates[u.name] = u.pickRate));
     game.freeUnits.forEach((name) => {
@@ -92,6 +94,7 @@
     document.getElementById("draft-type").value = "linear";
     updatePositionOptions();
     renderFreeUnits();
+    renderBannedUnits();
     renderPickRates();
   }
 
@@ -122,11 +125,33 @@
       container.appendChild(tag);
     });
 
-    // Populate add-free dropdown with non-free units
+    // Populate add-free dropdown with non-free, non-banned units
     const addSel = document.getElementById("add-free-select");
     addSel.innerHTML = '<option value="">-- Add unit --</option>';
     allUnits.forEach((name) => {
-      if (!freeUnits.includes(name)) {
+      if (!freeUnits.includes(name) && !bannedUnits.includes(name)) {
+        const opt = document.createElement("option");
+        opt.value = name;
+        opt.textContent = name;
+        addSel.appendChild(opt);
+      }
+    });
+  }
+
+  function renderBannedUnits() {
+    const container = document.getElementById("banned-unit-tags");
+    container.innerHTML = "";
+    bannedUnits.forEach((name) => {
+      const tag = document.createElement("span");
+      tag.className = "free-tag banned-tag";
+      tag.innerHTML = `${unitPortrait(name)}${name} <button data-name="${name}">&times;</button>`;
+      container.appendChild(tag);
+    });
+
+    const addSel = document.getElementById("add-banned-select");
+    addSel.innerHTML = '<option value="">-- Ban unit --</option>';
+    allUnits.forEach((name) => {
+      if (!freeUnits.includes(name) && !bannedUnits.includes(name)) {
         const opt = document.createElement("option");
         opt.value = name;
         opt.textContent = name;
@@ -139,7 +164,7 @@
     const container = document.getElementById("pick-rate-grid");
     container.innerHTML = "";
     allUnits.forEach((name) => {
-      if (freeUnits.includes(name)) return;
+      if (freeUnits.includes(name) || bannedUnits.includes(name)) return;
       const div = document.createElement("div");
       div.className = "pick-rate-item";
       div.innerHTML = `<span>${unitPortrait(name)}${name}</span><input type="number" min="1" max="999" value="${pickRates[name]}" data-unit="${name}">`;
@@ -196,7 +221,7 @@
     draftOrder = buildDraftOrder(total, numRounds, draftType, playerIndex);
 
     // Cap draft order if not enough units
-    available = allUnits.filter((n) => !freeUnits.includes(n));
+    available = allUnits.filter((n) => !freeUnits.includes(n) && !bannedUnits.includes(n));
     if (draftOrder.length > available.length) {
       draftOrder = draftOrder.slice(0, available.length);
     }
@@ -325,6 +350,7 @@
       const name = e.target.dataset.name;
       freeUnits = freeUnits.filter((n) => n !== name);
       renderFreeUnits();
+      renderBannedUnits();
       renderPickRates();
     }
   });
@@ -334,6 +360,27 @@
     if (sel.value) {
       freeUnits.push(sel.value);
       renderFreeUnits();
+      renderBannedUnits();
+      renderPickRates();
+    }
+  });
+
+  document.getElementById("banned-unit-tags").addEventListener("click", (e) => {
+    if (e.target.tagName === "BUTTON") {
+      const name = e.target.dataset.name;
+      bannedUnits = bannedUnits.filter((n) => n !== name);
+      renderFreeUnits();
+      renderBannedUnits();
+      renderPickRates();
+    }
+  });
+
+  document.getElementById("add-banned-btn").addEventListener("click", () => {
+    const sel = document.getElementById("add-banned-select");
+    if (sel.value) {
+      bannedUnits.push(sel.value);
+      renderFreeUnits();
+      renderBannedUnits();
       renderPickRates();
     }
   });
