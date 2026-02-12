@@ -16,6 +16,7 @@
   // --- State ---
   let selectedGame = null;
   let freeUnits = [];
+  let allUnits = []; // combined list of all units (free + draftable)
   let pickRates = {}; // name -> rate
   let drafters = []; // ["Player", "Bot 1", ...]
   let draftOrder = []; // sequence of drafter indices for entire draft
@@ -59,10 +60,14 @@
   function selectGame(index) {
     selectedGame = index;
     const game = GAMES[index];
-    // Deep copy free units and pick rates
+    // Deep copy free units and build combined unit list
     freeUnits = [...game.freeUnits];
     pickRates = {};
     game.units.forEach((u) => (pickRates[u.name] = u.pickRate));
+    game.freeUnits.forEach((name) => {
+      if (!(name in pickRates)) pickRates[name] = 50;
+    });
+    allUnits = [...new Set([...game.freeUnits, ...game.units.map((u) => u.name)])];
     renderSetup();
     showScreen("setup");
   }
@@ -105,11 +110,11 @@
     // Populate add-free dropdown with non-free units
     const addSel = document.getElementById("add-free-select");
     addSel.innerHTML = '<option value="">-- Add unit --</option>';
-    GAMES[selectedGame].units.forEach((u) => {
-      if (!freeUnits.includes(u.name)) {
+    allUnits.forEach((name) => {
+      if (!freeUnits.includes(name)) {
         const opt = document.createElement("option");
-        opt.value = u.name;
-        opt.textContent = u.name;
+        opt.value = name;
+        opt.textContent = name;
         addSel.appendChild(opt);
       }
     });
@@ -118,11 +123,11 @@
   function renderPickRates() {
     const container = document.getElementById("pick-rate-grid");
     container.innerHTML = "";
-    GAMES[selectedGame].units.forEach((u) => {
-      if (freeUnits.includes(u.name)) return;
+    allUnits.forEach((name) => {
+      if (freeUnits.includes(name)) return;
       const div = document.createElement("div");
       div.className = "pick-rate-item";
-      div.innerHTML = `<span>${u.name}</span><input type="number" min="1" max="100" value="${pickRates[u.name]}" data-unit="${u.name}">`;
+      div.innerHTML = `<span>${name}</span><input type="number" min="1" max="100" value="${pickRates[name]}" data-unit="${name}">`;
       container.appendChild(div);
     });
   }
@@ -173,9 +178,7 @@
     draftOrder = buildDraftOrder(total, numRounds, draftType, playerIndex);
 
     // Cap draft order if not enough units
-    available = game.units
-      .map((u) => u.name)
-      .filter((n) => !freeUnits.includes(n));
+    available = allUnits.filter((n) => !freeUnits.includes(n));
     if (draftOrder.length > available.length) {
       draftOrder = draftOrder.slice(0, available.length);
     }
