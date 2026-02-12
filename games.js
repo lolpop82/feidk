@@ -154,7 +154,8 @@ const GAMES = [
     {
     name: "Sacred Stones",
     slug: "ss",
-    freeUnits: ["Eirika", "Ephraim"],
+    freeUnits: ["Eirika", "Ephraim","Tethys"],
+    notes: "ban seth lol",
     units: [
       { name: "Seth", pickRate: 95 },
       { name: "Vanessa", pickRate: 80 },
@@ -163,7 +164,6 @@ const GAMES = [
       { name: "Tana", pickRate: 70 },
       { name: "Gerik", pickRate: 70 },
       { name: "Duessel", pickRate: 65 },
-      { name: "Tethys", pickRate: 60 },
       { name: "Saleh", pickRate: 60 },
       { name: "Lute", pickRate: 55 },
       { name: "Artur", pickRate: 55 },
