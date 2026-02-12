@@ -186,7 +186,6 @@
     });
 
     // Build drafters list
-    const total = numBots + 1;
     drafters = [];
     let botCount = 0;
     for (let i = 0; i < total; i++) {
