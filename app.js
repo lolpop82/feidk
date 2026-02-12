@@ -1,3 +1,14 @@
+function portraitError(img) {
+  const fb = img.dataset.fallbacks.split(",").filter(Boolean);
+  const next = fb.shift();
+  if (next) {
+    img.dataset.fallbacks = fb.join(",");
+    img.src = next;
+  } else {
+    img.style.display = "none";
+  }
+}
+
 (function () {
   // --- Theme toggle ---
   const themeBtn = document.getElementById("theme-toggle");
@@ -27,14 +38,19 @@
   let playerIndex = 0;
 
   // --- Portrait helpers ---
+  const portraitFallbacks = { br: ["co", "br"], re: ["br", "co", "re"] };
+
   function unitPortrait(name) {
     const slug = GAMES[selectedGame].slug;
-    const file = name.toLowerCase().replace(/[^a-z]/g, "") + slug + ".png";
-    return `<img class="portrait" src="img/units/${file}" alt="" onerror="this.style.display='none'">`;
+    const base = name.toLowerCase().replace(/[^a-z]/g, "");
+    const slugs = portraitFallbacks[slug] || [slug];
+    const paths = slugs.map((s) => `img/units/${base}${s}.png`);
+    const src = paths.shift();
+    return `<img class="portrait" src="${src}" alt="" data-fallbacks="${paths.join(",")}" onerror="portraitError(this)">`;
   }
 
   function gamePortrait(slug) {
-    return `<img class="game-portrait" src="img/games/${slug}.png" alt="" onerror="this.style.display='none'">`;
+    return `<img class="game-portrait" src="img/games/${slug}.png" alt="" data-fallbacks="" onerror="portraitError(this)">`;
   }
 
   // --- DOM refs ---
