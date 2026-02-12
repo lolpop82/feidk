@@ -390,6 +390,8 @@ const GAMES = [
       { name: "Say'ri", pickRate: 0 },  
       { name: "Basilio", pickRate: 0 },  
       { name: "Flavia", pickRate: 0 },  
+      { name: "Donnel", pickRate: 0 },  
+      { name: "Anna", pickRate: 0 },  
     ], 
   },
   {
