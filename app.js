@@ -108,7 +108,7 @@ function portraitError(img) {
     const notesEl = document.getElementById("setup-game-notes");
     notesEl.textContent = game.notes || "";
     notesEl.style.display = game.notes ? "" : "none";
-    document.getElementById("num-drafters").value = 4;
+    document.getElementById("num-drafters").value = game.defaultDrafters || 4;
     document.getElementById("num-rounds").value = 7;
     document.getElementById("draft-type").value = "linear";
     renderDrafterConfig();
