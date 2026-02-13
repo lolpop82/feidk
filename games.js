@@ -510,7 +510,7 @@ const GAMES = [
   },
   { name: "Shadows of Valentia",
     slug: "sv",
-    defaultDrafters: 1,
+    defaultDrafters: 2,
     freeUnits: ["Alm","Celica"],
     units: [
       { name: "Lukas", pickRate: 100},
