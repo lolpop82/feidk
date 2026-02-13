@@ -515,6 +515,19 @@ body.light .drafter-row select {
   background: #444;
 }
 
+.version-tag {
+  position: fixed;
+  bottom: 0.5rem;
+  left: 0.75rem;
+  font-size: 0.65rem;
+  color: #555;
+  z-index: 100;
+}
+
+body.light .version-tag {
+  color: #999;
+}
+
 /* Light theme */
 body.light {
   background: #f5f5f5;
