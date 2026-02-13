@@ -130,7 +130,7 @@ const GAMES = [
       { name: "Harken", pickRate: 100 },
       { name: "Serra", pickRate: 85 },
       { name: "Rath", pickRate: 30 },
-      { name: "Hawkeye", pickRate: 65 },
+      { name: "Hawkeye", pickRate: 80 },
       { name: "Louise", pickRate: 50 },
       { name: "Jaffar", pickRate: 40 },
       { name: "Rebecca", pickRate: 15 },
