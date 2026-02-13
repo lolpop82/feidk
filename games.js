@@ -508,6 +508,13 @@ const GAMES = [
       { name: "Gunter", pickRate: 60 },
     ],
   },
+  { name: "Shadows of Valentia",
+    slug: "sv",
+    freeUnits: ["Alm","Celica"],
+    units: [
+      { name: "Palla", pickRate: 100}
+    ]
+  },
   { name: "Engage", slug: "en", 
     freeUnits: ["Alear","Vander","Seadall"], 
     units: [
