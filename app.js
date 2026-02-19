@@ -447,3 +447,39 @@ function portraitError(img) {
   renderGameList();
   showScreen("select");
 })();
+
+// --- Corrin Randomizer ---
+(function () {
+  const STATS = [
+    { stat: "HP",         boon: "Robust",  bane: "Sickly"    },
+    { stat: "Strength",   boon: "Strong",  bane: "Weak"      },
+    { stat: "Magic",      boon: "Clever",  bane: "Dull"      },
+    { stat: "Skill",      boon: "Deft",    bane: "Clumsy"    },
+    { stat: "Speed",      boon: "Quick",   bane: "Slow"      },
+    { stat: "Luck",       boon: "Lucky",   bane: "Unlucky"   },
+    { stat: "Defence",    boon: "Sturdy",  bane: "Fragile"   },
+    { stat: "Resistance", boon: "Calm",    bane: "Excitable" },
+  ];
+
+  const TALENTS = [
+    "Samurai", "Oni Savage", "Spear Fighter", "Diviner",
+    "Sky Knight", "Archer", "Ninja", "Monk / Shrine Maiden",
+    "Cavalier", "Knight", "Mercenary", "Outlaw",
+    "Fighter", "Troubadour", "Wyvern Rider", "Dark Mage",
+    "Wolfskin / Kitsune",
+  ];
+
+  document.getElementById("corrin-randomize-btn").addEventListener("click", () => {
+    const boonIdx = Math.floor(Math.random() * STATS.length);
+    let baneIdx;
+    do { baneIdx = Math.floor(Math.random() * STATS.length); } while (baneIdx === boonIdx);
+    const talentIdx = Math.floor(Math.random() * TALENTS.length);
+
+    document.getElementById("corrin-boon").textContent =
+      STATS[boonIdx].boon + " (+" + STATS[boonIdx].stat + ")";
+    document.getElementById("corrin-bane").textContent =
+      STATS[baneIdx].bane + " (-" + STATS[baneIdx].stat + ")";
+    document.getElementById("corrin-talent").textContent = TALENTS[talentIdx];
+    document.getElementById("corrin-result").style.display = "block";
+  });
+})();

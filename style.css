@@ -698,3 +698,142 @@ body.light .theme-toggle {
 body.light .theme-toggle:hover {
   background: #ccc;
 }
+
+/* Tools Section */
+.tools-section {
+  max-width: 900px;
+  margin: 3rem auto 4rem;
+  border-top: 1px solid #2a2a2a;
+  padding-top: 1.5rem;
+}
+
+.tools-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.tools-header-img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+.tools-header h2 {
+  font-size: 1rem;
+  color: #aaa;
+  font-weight: 600;
+}
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.tool-card {
+  background: #1a1a1a;
+  border: 1px solid #2e2e2e;
+  border-radius: 4px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.tool-card-header {
+  text-align: center;
+}
+
+.tool-card-header h3 {
+  font-size: 0.95rem;
+  color: #ddd;
+}
+
+.tool-card-header p {
+  font-size: 0.75rem;
+  color: #666;
+  margin-top: 0.2rem;
+}
+
+.tool-hero-img {
+  width: 180px;
+  height: 180px;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.corrin-result {
+  width: 100%;
+  background: #111;
+  border: 1px solid #2a2a2a;
+  border-radius: 4px;
+  padding: 0.6rem 0.75rem;
+}
+
+.corrin-result-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.3rem 0;
+  font-size: 0.85rem;
+  border-bottom: 1px solid #1e1e1e;
+}
+
+.corrin-result-row:last-child {
+  border-bottom: none;
+}
+
+.corrin-label {
+  color: #666;
+  font-size: 0.78rem;
+}
+
+.corrin-value {
+  font-weight: 600;
+  color: #ddd;
+}
+
+.boon-val { color: #7bc; }
+.bane-val { color: #d97; }
+
+/* Light mode tools */
+body.light .tools-section {
+  border-top-color: #ddd;
+}
+
+body.light .tools-header h2 {
+  color: #666;
+}
+
+body.light .tool-card {
+  background: #fff;
+  border-color: #ddd;
+}
+
+body.light .tool-card-header h3 {
+  color: #222;
+}
+
+body.light .tool-card-header p {
+  color: #999;
+}
+
+body.light .corrin-result {
+  background: #f5f5f5;
+  border-color: #ddd;
+}
+
+body.light .corrin-result-row {
+  border-bottom-color: #e8e8e8;
+}
+
+body.light .corrin-label {
+  color: #999;
+}
+
+body.light .corrin-value {
+  color: #222;
+}

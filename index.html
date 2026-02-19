@@ -119,6 +119,41 @@
 
   <div class="version-tag">v1.03</div>
 
+  <!-- Tools Section (always visible) -->
+  <div id="tools-section" class="tools-section">
+    <div class="tools-header">
+      <img src="img/corrin-icon.png" alt="" class="tools-header-img" onerror="this.style.display='none'">
+      <h2>Tools</h2>
+    </div>
+    <div class="tools-grid">
+
+      <!-- Corrin Randomizer -->
+      <div class="tool-card">
+        <div class="tool-card-header">
+          <h3>Corrin Randomizer</h3>
+          <p>Random boon, bane &amp; talent for Fates</p>
+        </div>
+        <img src="img/corrin-plushie.png" alt="Corrin" class="tool-hero-img" onerror="this.style.display='none'">
+        <div id="corrin-result" class="corrin-result" style="display:none">
+          <div class="corrin-result-row">
+            <span class="corrin-label">Boon</span>
+            <span id="corrin-boon" class="corrin-value boon-val"></span>
+          </div>
+          <div class="corrin-result-row">
+            <span class="corrin-label">Bane</span>
+            <span id="corrin-bane" class="corrin-value bane-val"></span>
+          </div>
+          <div class="corrin-result-row">
+            <span class="corrin-label">Talent</span>
+            <span id="corrin-talent" class="corrin-value"></span>
+          </div>
+        </div>
+        <button id="corrin-randomize-btn" class="btn">Randomize</button>
+      </div>
+
+    </div>
+  </div>
+
   <script src="games.js"></script>
   <script src="app.js"></script>
 </body>
