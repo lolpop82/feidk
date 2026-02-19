@@ -466,7 +466,6 @@ function portraitError(img) {
     "Sky Knight", "Archer", "Ninja", "Monk / Shrine Maiden",
     "Cavalier", "Knight", "Mercenary", "Outlaw",
     "Fighter", "Troubadour", "Wyvern Rider", "Dark Mage",
-    "Wolfskin / Kitsune",
   ];
 
   document.getElementById("corrin-randomize-btn").addEventListener("click", () => {
